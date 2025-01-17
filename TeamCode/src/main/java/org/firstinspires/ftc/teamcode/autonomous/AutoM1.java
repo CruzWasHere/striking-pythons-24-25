@@ -3,10 +3,6 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commons.RobotHardware;
-import org.firstinspires.ftc.teamcode.teleOp.Claw;
-import org.firstinspires.ftc.teamcode.teleOp.Hang;
-
 import java.util.Arrays;
 
 @Autonomous (name = "AutoM1", preselectTeleOp = "ControlsNEW")
