@@ -1,41 +1,33 @@
-package org.firstinspires.ftc.teamcode.teleOp;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+public class Base {
 
-@TeleOp
-public class ControlsNEW extends LinearOpMode {
-    public final RobotHardware robot = new RobotHardware();
-    public Base driveControl;
+    public final RobotHardware robot;
 
-    public Hang hangControl;
+    // Constructor that takes RobotHardware as a parameter
+    public Base(RobotHardware robot) {
+        this.robot = robot;
+    }
 
-    
-    @Override
+    // Drive control method
+    public void drive(double y, double x, double rx) {
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
-    public void runOpMode() {
-        robot.init(hardwareMap); // Initialize robot hardware
-        driveControl = new Base(robot); // Initialize Control1 with RobotHardware
-        hangControl = new Hang(robot, this); // Initialize Hang with RobotHardware
+        // Calculate power for each motor
+        double frontLeftPower = calculateMotorPower(y, x, rx, 1, 1, denominator);
+        double backLeftPower = calculateMotorPower(y, x, rx, -1, 1, denominator);
+        double frontRightPower = calculateMotorPower(y, x, rx, -1, -1, denominator);
+        double backRightPower = calculateMotorPower(y, x, rx, 1, -1, denominator);
 
-        waitForStart();
+        // Set motor powers
+        robot.frontLeftMotor.setPower(frontLeftPower);
+        robot.backLeftMotor.setPower(backLeftPower);
+        robot.frontRightMotor.setPower(frontRightPower);
+        robot.backRightMotor.setPower(backRightPower);
+    }
 
-        if (isStopRequested()) return;
-
-        while (opModeIsActive()) {
-            // Pass the joystick values to Control1's drive method
-            double y = -gamepad1.left_stick_y; // Forward/backward
-            double x = gamepad1.left_stick_x * 1.1; // Strafing
-            double rx = gamepad1.right_stick_x; // Rotation
-            driveControl.drive(y, x, rx);
-
-            hangControl.controlHang(
-                    gamepad2.a,
-                    gamepad2.y,
-                    gamepad2.left_bumper,
-                    gamepad2.right_bumper,
-                    (int) Math.signum (gamepad2.left_stick_y)
-                    );
-        }
+    // Helper method for calculating motor power
+    private double calculateMotorPower(double y, double x, double rx, double xSign, double rxSign, double denominator) {
+        return (y + x * xSign + rx * rxSign) / denominator;
     }
 }
