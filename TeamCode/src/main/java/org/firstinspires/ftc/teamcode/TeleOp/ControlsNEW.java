@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleOp;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ public class ControlsNEW extends LinearOpMode {
 
     public Hang hangControl;
 
-    
+
     @Override
 
     public void runOpMode() {
@@ -29,22 +29,13 @@ public class ControlsNEW extends LinearOpMode {
             double rx = gamepad1.right_stick_x; // Rotation
             driveControl.drive(y, x, rx);
 
-//            clawControl.controlClaw(
-//                    gamepad2.a,
-//                    gamepad2.y,
-//                    gamepad2.x,
-//                    gamepad2.b,
-//                    gamepad2.left_bumper,
-//                    gamepad2.right_bumper
-//            );
-
             hangControl.controlHang(
                     gamepad2.a,
                     gamepad2.y,
                     gamepad2.left_bumper,
                     gamepad2.right_bumper,
                     (int) Math.signum (gamepad2.left_stick_y)
-                    );
+            );
         }
     }
 }
