@@ -29,15 +29,6 @@ public class ControlsNEW extends LinearOpMode {
             double rx = gamepad1.right_stick_x; // Rotation
             driveControl.drive(y, x, rx);
 
-//            clawControl.controlClaw(
-//                    gamepad2.a,
-//                    gamepad2.y,
-//                    gamepad2.x,
-//                    gamepad2.b,
-//                    gamepad2.left_bumper,
-//                    gamepad2.right_bumper
-//            );
-
             hangControl.controlHang(
                     gamepad2.a,
                     gamepad2.y,
