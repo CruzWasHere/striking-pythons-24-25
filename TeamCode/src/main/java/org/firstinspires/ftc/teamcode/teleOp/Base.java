@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleOp;
 
-import org.firstinspires.ftc.teamcode.commons.RobotHardware;
-
 public class Base {
 
     public final RobotHardware robot;

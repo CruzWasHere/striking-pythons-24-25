@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commons.RobotHardware;
-
 public class Claw {
 
     public final RobotHardware robot;

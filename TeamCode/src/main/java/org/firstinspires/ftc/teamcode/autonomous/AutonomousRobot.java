@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commons.RobotHardware;
+import org.firstinspires.ftc.teamcode.teleOp.RobotHardware;
 
 public class AutonomousRobot extends RobotHardware {
 
