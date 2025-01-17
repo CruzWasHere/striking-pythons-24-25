@@ -10,7 +10,6 @@ public class ControlsNEW extends LinearOpMode {
     public final RobotHardware robot = new RobotHardware();
     public Base driveControl;
 
-    public Claw clawControl;
     public Hang hangControl;
 
     
@@ -19,7 +18,6 @@ public class ControlsNEW extends LinearOpMode {
     public void runOpMode() {
         robot.init(hardwareMap); // Initialize robot hardware
         driveControl = new Base(robot); // Initialize Control1 with RobotHardware
-        clawControl = new Claw(robot, this ); // Initialize Control2 with RobotHardware
         hangControl = new Hang(robot, this); // Initialize Hang with RobotHardware
 
         waitForStart();
@@ -33,20 +31,22 @@ public class ControlsNEW extends LinearOpMode {
             double rx = gamepad1.right_stick_x; // Rotation
             driveControl.drive(y, x, rx);
 
-            clawControl.controlClaw(
-                    gamepad2.a,
-                    gamepad2.y,
-                    gamepad2.x,
-                    gamepad2.b,
-                    gamepad2.right_stick_button,
-                    gamepad2.left_bumper,
-                    gamepad2.right_bumper
-            );
+//            clawControl.controlClaw(
+//                    gamepad2.a,
+//                    gamepad2.y,
+//                    gamepad2.x,
+//                    gamepad2.b,
+//                    gamepad2.left_bumper,
+//                    gamepad2.right_bumper
+//            );
 
             hangControl.controlHang(
-                    gamepad2.dpad_down,
-                    gamepad2.dpad_up
-            );
+                    gamepad2.a,
+                    gamepad2.y,
+                    gamepad2.left_bumper,
+                    gamepad2.right_bumper,
+                    (int) Math.signum (gamepad2.left_stick_y)
+                    );
         }
     }
 }
