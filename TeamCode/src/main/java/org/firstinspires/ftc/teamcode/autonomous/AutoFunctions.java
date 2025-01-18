@@ -42,15 +42,8 @@ public class AutoFunctions {
         opMode.sleep(1000);
     }
     public void clawPower (double power, int time) {
-        robot.leftClaw.setPower(power);
-        robot.rightClaw.setPower(power);
-        opMode.sleep(time);
-        robot.leftClaw.setPower(0);
-        robot.rightClaw.setPower(0);
-        opMode.sleep(1000);
-    }
-    public void hangPower(double power, int time) {
-        robot.leftHang.setPower(power);
+//        robot.leftClaw.setPower(power);
+//        robot.leftHang.setPower(power);
         robot.rightHang.setPower(power);
         opMode.sleep(time);
         robot.leftHang.setPower(0);

@@ -281,7 +281,7 @@ public class TrajectorySequenceBuilder {
         return addPath(() -> currentTrajectoryBuilder.splineToSplineHeading(endPose, endHeading, velConstraint, accelConstraint));
     }
 
-    private TrajectorySequenceBuilder addPath(AddPathCallback callback) {
+    public TrajectorySequenceBuilder addPath(AddPathCallback callback) {
         if (currentTrajectoryBuilder == null) newPath();
 
         try {

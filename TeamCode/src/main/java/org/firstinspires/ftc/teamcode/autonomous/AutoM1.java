@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import java.util.Arrays;
 
-@Autonomous (name = "AutoM1", preselectTeleOp = "ControlsNEW")
+//@Autonomous (name = "AutoM1", preselectTeleOp = "ControlsNEW")
 public class AutoM1 extends LinearOpMode {
 
     public final AutonomousRobot robot = new AutonomousRobot();
