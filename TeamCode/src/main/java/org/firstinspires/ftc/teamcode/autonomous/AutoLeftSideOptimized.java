@@ -1,19 +1,18 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import android.annotation.SuppressLint;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.autonomous.Hang;
+import org.firstinspires.ftc.teamcode.TeleOp.Hang;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Autonomous(name = "AutoLeftSide", preselectTeleOp = "ControlsNEW")
 public class AutoLeftSideOptimized extends LinearOpMode {
@@ -22,14 +21,16 @@ public class AutoLeftSideOptimized extends LinearOpMode {
     private final List<String> telemetryLog = new ArrayList<>();
 
     // Constants for distances and headings
-    private static final double FORWARD_DIST1 = 24;
-    private static final double STRAFE_RIGHT_DIST = 24;
-    private static final double HANG_DIST = 8;
-    private static final double OBSERVATION_FORWARD_DIST = 64;
-    private static final double GRAB_FORWARD_DIST = 18;
-    private static final int ANGDEG = 82;
+    private static final double FORWARD_DIST1 = 80;
 
-    private Hang hangControl;
+    private static final double STRAFE_RIGHT_DIST = 24;
+
+    private static final double HANG_DIST = 12;
+    private static final double OBSERVATION_FORWARD_DIST = 58;
+    private static final double GRAB_FORWARD_DIST = 12;
+    private static final int ANGDEG = 110;
+
+    public Hang hangControl;
 
     private final RobotHardware robot = new RobotHardware();
 
@@ -39,19 +40,22 @@ public class AutoLeftSideOptimized extends LinearOpMode {
         robot.init(hardwareMap);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPosition = new Pose2d(0, 0, 0); // Starting position (customize if needed)
-
         telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
-        hangControl = new Hang(robot, this);
-
+        CloseClaw();
+        waitForStart();
         // Build the trajectory sequence
         TrajectorySequence trajectorySequence = drive.trajectorySequenceBuilder(startPosition)
-                .addDisplacementMarker(() -> this.closeClaw())
+              //  .addDisplacementMarker(() -> this.closeClaw())
+                .addDisplacementMarker(() -> {
+                    setHangPower(-1,800);
+                })
+
                 .forward(FORWARD_DIST1)
                 //Check to move up arm before hanging
                 .addDisplacementMarker(() -> {
                     logCurrentPosition(drive, "Hanging first specimen...");
-                    hangControl.setHangPower(-1,200);
-                    this.openClaw();
+                    OpenClaw();
+
                 })
 
 
@@ -59,14 +63,14 @@ public class AutoLeftSideOptimized extends LinearOpMode {
                 .turn(Math.toRadians(ANGDEG))
                 .forward(OBSERVATION_FORWARD_DIST)
                 .turn(Math.toRadians(ANGDEG))
-                .waitSeconds(1)
+                .waitSeconds(2) //human player
                 .forward(GRAB_FORWARD_DIST)
                 .addDisplacementMarker(() -> {
                     logCurrentPosition(drive, "Grabbing second specimen...");
-                    hangControl.setHangPower(1,200);
-                    this.closeClaw();
-                    this.sleep(100);
-                    hangControl.setHangPower(-1,200);
+                    setHangPower(1,1000);
+                    CloseClaw();
+                    sleep(100);
+                    setHangPower(-1,1000);
                 })
 
                 .back(GRAB_FORWARD_DIST)
@@ -76,8 +80,7 @@ public class AutoLeftSideOptimized extends LinearOpMode {
                 .forward(HANG_DIST)
                 .addDisplacementMarker(() -> {
                     logCurrentPosition(drive, "Hanging second specimen...");
-                    hangControl.setHangPower(1,200);
-                    this.openClaw();
+                    openClaw();
                 })
 
                 .back(HANG_DIST)
@@ -109,8 +112,8 @@ public class AutoLeftSideOptimized extends LinearOpMode {
     }
 
     private void openClaw(){
-            hangControl.setLeftClawServo(0.5);
-            hangControl.setRightClawServo(0.7);
+        hangControl.setLeftClawServo(0.5);
+        hangControl.setRightClawServo(0.7);
     }
 
     /**
@@ -137,7 +140,27 @@ public class AutoLeftSideOptimized extends LinearOpMode {
         for (String log : telemetryLog) {
             telemetry.addLine(log);
         }
-
         telemetry.update();
+    }
+    private void RightServo (double Pos){
+        robot.rightClawServo.setPosition(Pos);
+    }
+    private void LeftServo (double Pos){
+        robot.leftClawServo.setPosition(Pos);
+    }
+    private void CloseClaw (){
+        LeftServo(1);
+        RightServo(0);
+    }
+    private void OpenClaw (){
+        LeftServo(0.5);
+        RightServo(0.7);
+    }
+    public void setHangPower(double power, int time) {
+        robot.leftHang.setPower(power);
+        robot.rightHang.setPower(power);
+        sleep(time);
+        robot.leftHang.setPower(0);
+        robot.rightHang.setPower(0);
     }
 }

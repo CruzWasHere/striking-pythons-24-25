@@ -31,7 +31,6 @@ public class RobotHardware {
         leftClawServo = hardwareMap.get(Servo.class, "leftClawServo");
 
         // Configure motor directions if needed
-        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set zero power behavior for motors
@@ -42,5 +41,6 @@ public class RobotHardware {
 
         leftHang.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightHang.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 }

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class Hang {
 
     public final RobotHardware robot;
-    private final LinearOpMode opMode;
+    public final LinearOpMode opMode;
 
     // Constructor that takes RobotHardware as a parameter
     public Hang(RobotHardware robot, LinearOpMode opMode) {
@@ -15,23 +15,25 @@ public class Hang {
 
     // Hang Programming
 
-    public void controlHang(boolean buttonA, boolean buttonY, boolean leftBumper, boolean rightBumper, int leftStick) {
+    public void controlHang(boolean buttonA, boolean buttonY, boolean leftBumper, boolean rightBumper, int leftStick, boolean rightStick) {
         if (buttonA) {
             setClawPower(1, 100); // Hang Down
         } else if (buttonY) {
             setClawPower(-1, 100); // Hang Up
         }
         if (leftBumper) {
-            setLeftClawServo(1);
-            setRightClawServo(0);
+            setLeftClawServo(0.9);
+            setRightClawServo(0.3);
         } else if (rightBumper) {
             setLeftClawServo(0.5);
             setRightClawServo(0.7);
         }
         if (leftStick > 0) {
-            setHangPower(1,100);
+            setHangPower(0.5,100);
         } else if (leftStick < 0) {
-            setHangPower(-1, 100);
+            setHangPower(-0.5, 100);
+        } else if (rightStick) {
+            setHangPower(1,100);
         }
 
     }

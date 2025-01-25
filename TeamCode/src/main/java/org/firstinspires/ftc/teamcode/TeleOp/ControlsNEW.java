@@ -26,7 +26,7 @@ public class ControlsNEW extends LinearOpMode {
             // Pass the joystick values to Control1's drive method
             double y = -gamepad1.left_stick_y; // Forward/backward
             double x = gamepad1.left_stick_x * 1.1; // Strafing
-            double rx = gamepad1.right_stick_x; // Rotation
+            double rx = -gamepad1.right_stick_x; // Rotation
             driveControl.drive(y, x, rx);
 
             hangControl.controlHang(
@@ -34,7 +34,8 @@ public class ControlsNEW extends LinearOpMode {
                     gamepad2.y,
                     gamepad2.left_bumper,
                     gamepad2.right_bumper,
-                    (int) Math.signum (gamepad2.left_stick_y)
+                    (int) Math.signum (gamepad2.left_stick_y),
+                    gamepad2.right_stick_button
             );
         }
     }

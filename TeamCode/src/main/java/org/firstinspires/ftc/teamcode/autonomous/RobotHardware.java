@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RobotHardware {
+public class RobotHardware extends org.firstinspires.ftc.teamcode.TeleOp.RobotHardware {
 
     // Declare motors and servos
     public DcMotor Claw, leftHang, rightHang;
