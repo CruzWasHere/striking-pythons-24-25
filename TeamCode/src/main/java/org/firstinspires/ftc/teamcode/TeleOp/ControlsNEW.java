@@ -35,7 +35,8 @@ public class ControlsNEW extends LinearOpMode {
                     gamepad2.left_bumper,
                     gamepad2.right_bumper,
                     (int) Math.signum (gamepad2.left_stick_y),
-                    gamepad2.right_stick_button
+                    gamepad2.right_stick_button,
+                    gamepad2.left_stick_button
             );
         }
     }

@@ -15,7 +15,7 @@ public class Hang {
 
     // Hang Programming
 
-    public void controlHang(boolean buttonA, boolean buttonY, boolean leftBumper, boolean rightBumper, int leftStick, boolean rightStick) {
+    public void controlHang(boolean buttonA, boolean buttonY, boolean leftBumper, boolean rightBumper, int leftStick, boolean rightStick, boolean leftStickBut) {
         if (buttonA) {
             setClawPower(1, 100); // Hang Down
         } else if (buttonY) {
@@ -34,6 +34,8 @@ public class Hang {
             setHangPower(-0.5, 100);
         } else if (rightStick) {
             setHangPower(1,100);
+        } else if (leftStickBut) {
+            setHangPower(-1,100);
         }
 
     }

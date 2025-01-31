@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RobotHardware extends org.firstinspires.ftc.teamcode.TeleOp.RobotHardware {
+import org.firstinspires.ftc.teamcode.TeleOp.RobotHardware;
+
+public class AutoRobotHardware extends RobotHardware {
 
     // Declare motors and servos
     public DcMotor Claw, leftHang, rightHang;
