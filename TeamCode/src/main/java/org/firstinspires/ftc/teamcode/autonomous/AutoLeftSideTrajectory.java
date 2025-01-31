@@ -47,7 +47,7 @@ public class AutoLeftSideTrajectory extends LinearOpMode {
         closeClaw();
         waitForStart();
         // Build the trajectory sequence
-        Trajectory initial = drive.trajectoryBuilder(startPosition).forward(FORWARD_DIST1).build();\
+        Trajectory initial = drive.trajectoryBuilder(startPosition).forward(FORWARD_DIST1).build();
 
         waitForStart();
 
